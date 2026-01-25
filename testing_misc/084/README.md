@@ -41,3 +41,30 @@ Look at the main.go file and complete the exercise by:
 3. Learning to interpret test failure messages
 
 This exercise teaches you to recognize and understand test failures, which is crucial for debugging and maintaining code quality.
+
+```go
+
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+package main
+
+import "fmt"
+
+// Testing!! 
+// Now let's see what happens when a test fails!
+// Exercise: Create a function that returns a string "Hello, Test. THIS WILL FAIL"
+func HelloTest() string {
+  return "Hello, Test. THIS WILL FAIL"
+}
+
+// Print the function
+func main() {
+  fmt.Println(HelloTest())
+}
+```
+
+</details>

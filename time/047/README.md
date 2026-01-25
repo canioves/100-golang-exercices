@@ -64,3 +64,48 @@ The program should display a time that is exactly 20 minutes after the current t
 ## Hint
 
 Remember that `time.Minute` is a duration constant, so `20 * time.Minute` creates a 20-minute duration.
+
+```go
+// Exercise: Time
+
+// Add 20 minutes to the current time (shown in UTC)
+
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+  current := time.Now().UTC()
+  inTenMinutes := 
+  
+  fmt.Println(inTenMinutes)
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Exercise: Time
+
+// Add 20 minutes to the current time (shown in UTC)
+
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+  current := time.Now().UTC()
+  inTenMinutes := current.Add(time.Minute * 20 )
+  
+  fmt.Println(inTenMinutes)
+}
+```
+
+</details>

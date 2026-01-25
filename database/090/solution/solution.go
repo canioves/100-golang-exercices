@@ -8,20 +8,23 @@ package main
 // 1- You need to install these two libraries through the following commands, one is for the mongo driver and the other for a dotenv file
 // go get go.mongodb.org/mongo-driver/mongo
 // go get github.com/joho/godotenv
-// 2- Once installed, create a file named ".env" containing your 
+// 2- Once installed, create a file named ".env" containing your connection string. Use that env file to connect to the db.
+//    This .env file, will have one variable called "MONGODB_URI=" with the value of your mongodb connection string.
 import (
 	"context"
 	//"encoding/json"
 	//"fmt"
 	"log"
 	"os"
+
 	"github.com/joho/godotenv"
+
 	//"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func main (){
+func main() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Could not load .env file")

@@ -42,3 +42,49 @@ Work with a buffered channel that will be closed. Learn how:
 1. You can still read from a closed channel
 2. What happens when you read from a closed, empty channel
 3. The behavior difference between open and closed channels
+
+```go
+// Exercise: Channels - Closing
+
+// Create a string channel "c" (make it a buffered channel)
+// Add 2 different strings directly into that channel.
+// Close the channel with the close() statement and read a quote from the channel, Can you read it?
+
+package main
+
+import "fmt"
+
+
+func main () {
+	
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Exercise: Channels - Closing
+
+// Create a string channel "c" (make it a buffered channel)
+// Add 2 different strings directly into that channel.
+// Close the channel with the close() statement and read a quote from the channel, Can you read it?
+
+package main
+
+import "fmt"
+
+
+func main () {
+	var c chan string = make(chan string,2)
+
+	c <- "Hello"
+	c <- "how are you?"
+
+	fmt.Println( <- c)
+	close(c)
+	fmt.Println( <- c)
+}
+```
+
+</details>

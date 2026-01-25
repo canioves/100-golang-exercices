@@ -11,11 +11,11 @@ package main
 import "fmt"
 
 func receive(c <- chan string){
-	fmt.Println(<-c)
+  fmt.Println(<-c)
 }
 
 func main () {
-	var c chan string = make(chan string, 1)
-	c <- "HelloWorld!"
-	receive(c)
+  var c chan string = make(chan string, 1)
+  c <- "HelloWorld!"
+  receive(c)
 }

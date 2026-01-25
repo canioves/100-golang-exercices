@@ -1,52 +1,108 @@
-# Exercise 44: Multiple Goroutines with Channels
+# Exercise 44: Range Over Unbuffered Channels
 
-## Scaling Up: Multiple Producers
+## Range with Unbuffered Channels
 
-This exercise extends the previous concepts by using multiple goroutines sending to the same channel. This is a common pattern in concurrent programming called **fan-in**.
+This exercise explores using `range` with unbuffered channels and goroutines producing data in real-time. Unlike buffered channels, unbuffered channels require a goroutine to be actively sending data.
 
-## Fan-In Pattern
+## Unbuffered vs Buffered Channels
 
-**Fan-in** means multiple producers (goroutines) send data to a single channel, which is consumed by one or more receivers.
+**Buffered channels** (previous exercise):
+- Can hold multiple values before blocking
+- Must be closed before using `range`
+- Values are stored in the buffer
 
-```go
-     Producer 1 ──┐
-                  ├─── Channel ─── Consumer
-     Producer 2 ──┘
-```
+**Unbuffered channels** (this exercise):
+- Block on send until receiver is ready
+- Block on receive until sender is ready
+- Perfect for real-time data streaming
+- Don't need to be closed for `range` (but goroutine must keep sending)
 
-## Why Multiple Producers?
+## Real-Time Data Streaming
 
-- **Parallel processing**: Multiple workers can produce data simultaneously
-- **Load distribution**: Spread work across multiple goroutines
-- **Resource utilization**: Make use of multiple CPU cores
-- **Scalability**: Easy to add more producers as needed
-
-## Natural Ordering
-
-When multiple goroutines send to the same channel, messages arrive in the order they're sent, but since goroutines run concurrently, this creates a natural interleaving of messages.
+When using `range` with unbuffered channels:
+- The goroutine continuously produces data
+- `range` blocks waiting for each new value
+- Data flows in real-time as it's produced
+- The loop continues until the channel is closed or the goroutine stops
 
 ## Key Concepts
 
-1. **Shared channel**: Multiple goroutines can send to the same channel safely
-2. **Concurrent execution**: All producer goroutines run simultaneously
-3. **Single consumer**: One receiver (like your main function) gets all messages
-4. **Non-deterministic order**: Message arrival order depends on goroutine scheduling
+1. **Unbuffered channel**: Synchronous communication, no buffer
+2. **Goroutine producer**: Continuously sends data in a loop
+3. **Range consumer**: Receives data as it's produced
+4. **Real-time processing**: Data flows immediately without buffering
 
 ## Your Task
 
-Create a system with multiple goroutines that:
-1. Each runs a function that sends time-related data to channels
-2. All goroutines run concurrently
-3. Main function receives from all channels and displays the results
-4. Observe how messages from different producers are interleaved
+Create a goroutine that:
+1. Has an infinite loop that sends the current second to a channel
+2. Waits one second between each send
+3. Use `range` in main to receive and print each second value
+4. Observe how data flows in real-time from the goroutine
 
 ## Expected Behavior
 
-You should see messages from different goroutines appearing in an interleaved, non-deterministic order. This demonstrates how multiple concurrent producers can feed data into a single processing pipeline.
+You should see the current second value printed continuously, updating every second. This demonstrates real-time data streaming with unbuffered channels.
 
-## Real-World Applications
+```go
+// Exercise: Channels - Range (unbuffered)
 
-This pattern is used in:
-- **Web servers**: Multiple request handlers sending responses
-- **Data processing**: Multiple workers processing different parts of a dataset
-- **Monitoring systems**: Multiple sensors sending data to a central collector
+// In this exercise we will use the range keyword to iterate over a UNbuffered (sync) channel.
+// Create a unbuffered channel (type int)
+// Create a goroutine that:
+// Has an infinite loop -> prints the current second and waits for a second
+// Use the range iterator in the main function to see each second
+
+package main
+
+import "fmt"
+import "time"
+
+func second(c chan int){
+	
+}
+
+func main () {
+	var c chan int = make(chan int)
+	go second(c)
+	
+	
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Exercise: Channels - Range (unbuffered)
+
+// In this exercise we will use the range keyword to iterate over a UNbuffered (sync) channel.
+// Create a unbuffered channel (type int)
+// Create a goroutine that:
+// Has an infinite loop -> prints the current second and waits for a second
+// Use the range iterator in the main function to see each second
+
+package main
+
+import "fmt"
+import "time"
+
+func second(c chan int){
+	for {
+		c <- time.Now().Second()
+		time.Sleep(time.Second)
+	}
+}
+
+func main () {
+	var c chan int = make(chan int)
+
+	go second(c)
+	
+	for element := range c {
+		fmt.Println(element)
+	}
+}
+```
+
+</details>

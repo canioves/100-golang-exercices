@@ -7,18 +7,19 @@ import (
 	"context"
 	"log"
 	"os"
+
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type User struct{
+type User struct {
 	Name string
 	Age  int
 }
 
-func main (){
+func main() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Could not load .env file")
@@ -38,32 +39,33 @@ func main (){
 	}()
 	usersCollection := client.Database("TestCluster").Collection("users")
 	log.Println(usersCollection.Name())
-	
-	// We are going to create a group stage, this will have the result for the average age of all our users.
-	// Create a variable named groupStage with the first element as "average_price" and the second element a bson.D variable containing "$avg" expression and "$age"
+
+	// We are going to create a group stage, this will have the result for the average age for each named user!.
+	// Create a variable named groupStage
+	// we will assign it a bson.D object with the following information:
 	groupStage := bson.D{
-						{"$group", bson.D{
-							{"_id", "$name"},
-							{"average_price", bson.D{{"$avg", "$age"}}},
-							{"numTimes", bson.D{{"$sum", 1}}},
-						}},
+		{"$group", bson.D{
+			{"_id", "$name"},
+			{"average_price", bson.D{{"$avg", "$age"}}},
+			{"numTimes", bson.D{{"$sum", 1}}},
+		}},
 	}
-	
+
 	// use the Aggregate() function with the second argument as mongo.Pipeline{groupStage}:
 	cursor, err := usersCollection.Aggregate(context.TODO(), mongo.Pipeline{groupStage})
 	if err != nil {
 		panic(err)
 	}
-	
+
 	// display the results
 	var results []bson.M
 	if err = cursor.All(context.TODO(), &results); err != nil {
-	    panic(err)
+		panic(err)
 	}
 
 	for _, result := range results {
-	    log.Printf("Average age of users named like %v user options: %v \n", result["_id"], result["average_price"])
-	    log.Printf("Number of %v tea options: %v \n\n", result["_id"], result["numTimes"])
+		log.Printf("Average age of users named like %v user options: %v \n", result["_id"], result["average_price"])
+		log.Printf("Number of %v tea options: %v \n\n", result["_id"], result["numTimes"])
 	}
-	
+
 }

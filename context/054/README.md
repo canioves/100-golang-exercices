@@ -58,3 +58,59 @@ func DoWork(ctx context.Context, data string) error {
 4. **Call your function** with the context
 
 This is your first step into the world of Go contexts - understanding how to pass them between functions.
+
+```go
+// Contexts
+// I feel contexts are a really powerful feature in GO and I haven't given the importance that it deserves.
+
+// In this episodes, we are going to talk about contexts!
+package main
+
+import (
+	 // import the "context" package
+	"fmt"
+)
+
+// Create a function called doSomething with an argument ctx of type context.Context (this is an interface)
+// Print "Doing something!"
+
+
+func main() {
+	// create a variable called ctx, this variable will have a context.TODO() value, which returns an empty Context.
+
+
+	// call the function with the empty context created before as it's only argument
+
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Contexts
+// I feel contexts are a really powerful feature in GO and I haven't given the importance that it deserves.
+
+// In this episodes, we are going to talk about contexts!
+package main
+
+import (
+	"context" // import the "context" package
+	"fmt"
+)
+
+// Create a function called doSomething with an argument ctx of type context.Context (this is an interface)
+func doSomething(ctx context.Context) {
+	fmt.Println("Doing something!")
+}
+
+func main() {
+	// create a variable called ctx, this variable will have a context.TODO() value, which returns an empty Context.
+	ctx := context.TODO()
+
+	// call the function with the empty context created before as it's only argument
+	doSomething(ctx)
+}
+```
+
+</details>

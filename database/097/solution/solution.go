@@ -8,17 +8,17 @@ import (
 	"context"
 	"log"
 	"os"
+
+	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"github.com/gofiber/fiber/v2"
 )
 
 type User struct {
 	Age  int    `json:"age"`
 	Name string `json:"name"`
 }
-
 
 func initDB() *mongo.Database {
 	// MongoDB connection setup
@@ -43,7 +43,7 @@ func initDB() *mongo.Database {
 }
 
 // Create a simple function to return some string to the fiber context
-// this function signature will be [func helloWorld(c *fiber.Ctx)]
+// this function signature will be [func helloWorld(c *fiber.Ctx) error]
 // inside you will call the Send() method in that context, with the string "Hello World!" as it's only argument.
 func helloWorld(c *fiber.Ctx) error {
 	return c.SendString("Hello, World!")
@@ -55,13 +55,13 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/", helloWorld)
 }
 
-// main 
-func main (){
-	// Fiber 
+// main
+func main() {
+	// Fiber
 	// Create a new App with fiber.New()
 	app := fiber.New()
 	// Add the routes to the app we created above (right now we only have 1 route)
 	setupRoutes(app)
 	// Listen to port 3000
-    app.Listen(":3000")
+	app.Listen(":3000")
 }

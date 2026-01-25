@@ -1,25 +1,26 @@
 // Exercise: Routines
 
 // Document yourself and ask what a goroutine is.
-// Make a go routine of the counter() function
-// right after calling the go routine, in the next line. call the same routine with another different number
-
+// Create a go routine named `start()` and call it inside our main() block
+// Notice how goroutines do not wait for the execution to finish and follows with the next code statements
 
 package main
 
 import "fmt"
 import "time"
 
-func counter(x int) {
-	for i := 0; i < x; i++ {
-		fmt.Println(i)
-	}
+func main() {
+	// call our go routine here
+
+	// Immediately after calling our go routine, we will print "Started"
+	// Note that possibly "Started" can be printed BEFORE our go routine string
+	fmt.Println("Started")
+	// add a sleep of 1 second here
+
+	fmt.Println("Finished")
 }
 
-func main () {
-	// Your code goes here
-	
-
-	// this sleep is in order to not exit the program sooner than the routine lifetime :)
-	time.Sleep(5 * time.Second)
+func start() {
+	// Print something
 }
+

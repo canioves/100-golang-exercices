@@ -16,10 +16,10 @@ func task(done chan bool) {
 }
 
 func main () {
-	var done chan bool = make(chan bool)	
-	go task(done)
+  var done chan bool = make(chan bool)
+  go task(done)
 
-	// What would happen if we comment out this next line "<- done"?
-	// Your code goes here
-	<- done
+  // What would happen if we comment out this next line "<- done"?
+  // Your code goes here
+  <- done
 }

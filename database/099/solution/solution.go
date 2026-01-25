@@ -8,11 +8,12 @@ import (
 	"context"
 	"log"
 	"os"
-	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo/options"
+
 	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type User struct {
@@ -21,9 +22,9 @@ type User struct {
 }
 
 type UserResponse struct {
-    Status  int        `json:"status"`
-    Message string     `json:"message"`
-    Data    *fiber.Map `json:"data"`
+	Status  int        `json:"status"`
+	Message string     `json:"message"`
+	Data    *fiber.Map `json:"data"`
 }
 
 func initDB() *mongo.Database {
@@ -44,26 +45,31 @@ func initDB() *mongo.Database {
 }
 
 func createUser(c *fiber.Ctx) error {
-	// Connect to the DB
+	// In order to create a user, we are going to send the user attributes through
+	// an http body payload containing the json for the user like  "{"name":"Kyle","age":"23"}"
+
+	// 1. Connect to the DB
 	collection := initDB().Collection("users")
-	// Get the user from the request body! (You can use POSTMAN to test! )
+	// 2. Create a variable named user and get the user from the request body! (You can use POSTMAN to test! )
+	// use the context.BodyParser function referencing that user variable as it's argument
 	var user User
-	err := c.BodyParser(&user);
+	err := c.BodyParser(&user)
 	if err != nil {
 		return c.Status(503).JSON(UserResponse{Status: 503, Message: "error: Incorrect user payload", Data: &fiber.Map{"data": err.Error()}})
 	}
 
-	// Create a variable newUser with the parsed data!
+	// 3.Create a variable newUser with the parsed data!
 	newUser := User{
 		Name: user.Name,
-		Age : user.Age,
+		Age:  user.Age,
 	}
-	// Insert the user into the MongoDB collection
+	// 4.Insert the user into the MongoDB collection
+	// Use the collection.InsertOne() func with the newUser var
 	res, err := collection.InsertOne(context.TODO(), newUser)
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+	// 5. If everything went fine, return http 200 with the response for the created newUser
 	return c.Status(200).JSON(UserResponse{Status: 200, Message: "success", Data: &fiber.Map{"data": res}})
 }
 
@@ -71,12 +77,12 @@ func getUser(c *fiber.Ctx) error {
 	// Connect to the DB
 	collection := initDB().Collection("users")
 	name := c.Params("name")
-	filter := bson.D{{"name",name}}
+	filter := bson.D{{"name", name}}
 	var user User
 	err := collection.FindOne(context.TODO(), filter).Decode(&user)
 	if err != nil {
-        return c.Status(500).JSON(UserResponse{Status: 500, Message: "error", Data: &fiber.Map{"data": err.Error()}})
-    }
+		return c.Status(500).JSON(UserResponse{Status: 500, Message: "error", Data: &fiber.Map{"data": err.Error()}})
+	}
 
 	return c.Status(200).JSON(UserResponse{Status: 200, Message: "success", Data: &fiber.Map{"data": user}})
 }
@@ -91,11 +97,11 @@ func setupRoutes(app *fiber.App) {
 	app.Post("/user", createUser)
 }
 
-// main 
-func main (){
-	// Fiber 
+// main
+func main() {
+	// Fiber
 	app := fiber.New()
 	setupRoutes(app)
 	// Listen to port 3000
-    app.Listen(":3000")
+	app.Listen(":3000")
 }

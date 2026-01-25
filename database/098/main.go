@@ -90,7 +90,7 @@ func helloWorld(c *fiber.Ctx) error {
 
 func setupRoutes(app *fiber.App) {
 	app.Get("/", helloWorld)
-	// We will allocate the /user/:name uri, and we will pass the name as queryParam (/user/john)
+	// We will allocate the /user/:name uri, and we will pass the name as path parameter (/user/john)
 	
 }
 

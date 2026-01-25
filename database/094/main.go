@@ -48,7 +48,7 @@ func main (){
 	if err != nil {
 		panic(err)
 	}
-	// And now let's find one user named "John" in the database, let's create a search filter with has the "name" = "John"
+	// And now let's find one user named "Rose" in the database, let's create a search filter with has the "name" = "Rose"
 	filter := bson.D{{"name","Rose"}}
 	// Let's create a return variable of type bson.D
 	var result bson.D 

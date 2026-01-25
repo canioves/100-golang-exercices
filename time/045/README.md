@@ -55,3 +55,58 @@ Create a goroutine that uses `time.Tick()` to print "Tick" every second. The mai
 ## Expected Behavior
 
 You should see "Tick" printed approximately every second for 5 seconds total.
+
+```go
+// Exercise: Tickers
+
+// Create a goroutine with a infinite loop
+// The condition for that infinite loop will be a range that goes over the "time.Tick(time.Second * 1)", in other words: a simple ticker
+// And at every Tick, we will print "Tick"
+// In the main function, call the go routine :)
+
+package main
+
+import "fmt"
+import "time"
+
+func task() {
+    
+}
+
+func main() {
+    
+
+
+    time.Sleep(time.Second * 5) 
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Exercise: Tickers
+
+// Create a goroutine with a infinite loop
+// The condition for that infinite loop will be a range that goes over the "time.Tick(time.Second * 1)"
+// And at every Tick, we will print "Tick"
+// In the main function, call the go routine :)
+
+package main
+
+import "fmt"
+import "time"
+
+func task() {
+    for range time.Tick(time.Second *1){
+        fmt.Println("Tick ")
+    }
+}
+
+func main() {
+    go task()
+    time.Sleep(time.Second * 5)
+}
+```
+
+</details>

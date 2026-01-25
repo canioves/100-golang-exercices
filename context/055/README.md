@@ -52,3 +52,56 @@ This exercise builds on the previous one:
 3. **Call your function** with this background context
 
 The functionality is identical to the previous exercise, but the intent is clearer - you're establishing a root context for your operation.
+
+```go
+// Contexts - Background
+package main
+
+import (
+	"context" 
+	"fmt"
+)
+
+// Create a function called doSomething with an argument ctx of type context.Context (this is an interface)
+func doSomething(ctx context.Context) {
+	fmt.Println("Doing something!")
+}
+
+func main() {
+	// create a variable called ctx, this variable will have a context.Background(), this is used for developers
+	// to let know that it's initializing a context
+	
+
+	// call the function with the empty context created before as it's only argument
+	doSomething(ctx)
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Contexts - Background
+package main
+
+import (
+	"context" // import the "context" package
+	"fmt"
+)
+
+// Create a function called doSomething with an argument ctx of type context.Context (this is an interface)
+func doSomething(ctx context.Context) {
+	fmt.Println("Doing something!")
+}
+
+func main() {
+	// create a variable called ctx, this variable will have a context.Background(), this is used for developers
+	// to let know that it's initializing a context
+	ctx := context.Background()
+
+	// call the function with the empty context created before as it's only argument
+	doSomething(ctx)
+}
+```
+
+</details>

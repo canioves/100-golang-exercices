@@ -37,3 +37,71 @@ Build on the previous exercise but add proper error handling:
 4. Prevent panics from invalid type assumptions
 
 This teaches defensive programming practices essential for robust Go applications.
+
+```go
+// Interfaces -  Empty interfaces, bear in mind...
+package main
+
+import (
+	"fmt"
+	"log"
+)
+
+type human map[string]interface{}
+
+// But there's an important thing to point out when it comes to retrieving and using a value from this map
+// let's say that we want to get the "age" value and increment it by 1.
+func main() {
+	person := make(human)
+	person["name"] = "Alice"
+    person["age"] = 21
+    person["height"] = 167.64
+
+	// Type assertion for the integer. use .(int) for type assertion!
+	
+	// Check that the assertion was alright
+	
+
+	person["age"] = age + 1
+
+    fmt.Printf("%+v", person)
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Interfaces -  Empty interfaces, bear in mind...
+package main
+
+import (
+	"fmt"
+	"log"
+)
+
+type human map[string]interface{}
+
+// But there's an important thing to point out when it comes to retrieving and using a value from this map
+// let's say that we want to get the "age" value and increment it by 1.
+func main() {
+	person := make(human)
+	person["name"] = "Alice"
+    person["age"] = 21
+    person["height"] = 167.64
+
+	// Type assertion for the integer. use .(int) for type assertion!
+	age, ok := person["age"].(int)
+	// Check that the assertion was alright
+	if !ok {
+		log.Fatal("could not assert value to int")
+        return
+	}
+
+	person["age"] = age + 1
+
+    fmt.Printf("%+v", person)
+}
+```
+
+</details>

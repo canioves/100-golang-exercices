@@ -1,6 +1,6 @@
 # Exercise 35: Channel Synchronization
 
-## The Problem with Goroutines and Main Function
+## The Problem with Goroutines and the `main()` function
 
 When you start a goroutine, the main function doesn't automatically wait for it to complete. If the main function ends, the entire program terminates - even if goroutines are still running.
 
@@ -9,7 +9,10 @@ When you start a goroutine, the main function doesn't automatically wait for it 
 There are several ways to wait for goroutines to complete:
 1. **`time.Sleep()`** - crude, unreliable (what if task takes longer?)
 2. **Channel synchronization** - precise, reliable
-3. **sync.WaitGroup** - for multiple goroutines (you'll learn this later)
+3. **sync.WaitGroup** - for multiple goroutines (you'll learn this later, also reliable)
+
+For now we've seen mostly `time.Sleep()` in order to learn and see the go routine behaviours
+in our path to become great engineers we must adapt and learn elegant and reliable solutions.
 
 ## Channel Synchronization
 
@@ -64,3 +67,63 @@ When completed correctly:
 ## Hint
 
 You need exactly one line of code that receives from the `done` channel. The receive operation will block until the goroutine sends the completion signal.
+
+```go
+// Exercise: Channels synchronisation
+
+// We have a goroutine task, learn how the channel synchronisation works and make the program wait for the asynchronous function (make it synchronous ;) )
+
+package main
+
+import "fmt"
+import "time"
+
+func task(done chan bool) {
+    fmt.Print("running...")
+    time.Sleep(time.Second)
+    fmt.Println("done")
+
+    done <- true
+}
+
+func main () {
+  var done chan bool = make(chan bool)
+  go task(done)
+
+  // Your code goes here
+
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Exercise: Channels synchronisation
+
+// We have a goroutine task, learn how the channel synchronisation works and make the program wait for the asynchronous function (make it synchronous ;) )
+
+package main
+
+import "fmt"
+import "time"
+
+func task(done chan bool) {
+    fmt.Print("running...")
+    time.Sleep(time.Second)
+    fmt.Println("done")
+
+    done <- true
+}
+
+func main () {
+  var done chan bool = make(chan bool)
+  go task(done)
+
+  // What would happen if we comment out this next line "<- done"?
+  // Your code goes here
+  <- done
+}
+```
+
+</details>

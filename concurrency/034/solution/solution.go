@@ -12,22 +12,22 @@ import "time"
 
 
 func pop_message (c chan string){
-	msg := <- c
-	fmt.Println(msg)
+  msg := <- c
+  fmt.Println(msg)
 }
 func main () {
-	// Your code goes here
-	var c chan string = make(chan string, 4)
-	c <- "My"
-	c <- "Name"
-	c <- "is"
-	c <- "Enin"
+  // Your code goes here
+  var c chan string = make(chan string, 4)
+  c <- "My"
+  c <- "Name"
+  c <- "is"
+  c <- "Enin"
 
-	pop_message(c)
-	pop_message(c)
-	pop_message(c)
-	pop_message(c)
+  pop_message(c)
+  pop_message(c)
+  pop_message(c)
+  pop_message(c)
 
-	// this sleep is in order to not exit the program sooner than the routine lifetime :)
-	time.Sleep(1 * time.Second)
+  // this sleep is in order to not exit the program sooner than the routine lifetime :)
+  time.Sleep(1 * time.Second)
 }

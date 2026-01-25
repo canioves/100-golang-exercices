@@ -7,17 +7,17 @@ package main
 import (
 	"context"
 	"log"
-	"os"
-	"encoding/json"
 	"net/http"
+	"os"
+
+	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"github.com/gofiber/fiber/v2"
 )
 
-// IMPORTANT FOR THIS EXERCISE, READ ALL THE FILE BEFORE BEGINNING!!! 
+// IMPORTANT FOR THIS EXERCISE, READ ALL THE FILE BEFORE BEGINNING!!!
 // Our goal is to create a new endpoint (app.Get(/users/:id)), so when we try to find /users/John we find one, but when we try to find /users/john it doesn't
 // (case sensitivity for this case :) )
 
@@ -31,9 +31,9 @@ type User struct {
 // 2- Message, string
 // 3- Data, a *fiber.Map element containing our actual payload. *fiber.Map is a shortcut for map[string]interface{}, useful for JSON returns.
 type UserResponse struct {
-    Status  int        `json:"status"`
-    Message string     `json:"message"`
-    Data    *fiber.Map `json:"data"`
+	Status  int        `json:"status"`
+	Message string     `json:"message"`
+	Data    *fiber.Map `json:"data"`
 }
 
 func initDB() *mongo.Database {
@@ -59,25 +59,25 @@ func getUser(c *fiber.Ctx) error {
 
 	// Get user by name, first extract the name from the URI:
 	name := c.Params("name")
-	
+
 	// And now let's find one user named "John" in the database, let's create a search filter with has the "name" = parameter we set before
-	filter := bson.D{{"name",name}}
+	filter := bson.D{{"name", name}}
 	// Let's create a user variable of type User to reference it with the FindOne function later
 	var user User
 	// Let's use the FindOne() function and reference the return value in the result variable created above!
 	err := collection.FindOne(context.TODO(), filter).Decode(&user)
 	// Catch the error, if the above query was unsuccesful, return a HTTP500 status message with the err.Error() as the data payload, and "error" as message.
 	if err != nil {
-        return c.Status(500).JSON(UserResponse{Status: 500, Message: "error", Data: &fiber.Map{"data": err.Error()}})
-    }
-	
-	/*
-	// DEBUGGING
-	output, err := json.MarshalIndent(user, "", "    ")
-	if err != nil {
-		panic(err)
+		return c.Status(500).JSON(UserResponse{Status: 500, Message: "error", Data: &fiber.Map{"data": err.Error()}})
 	}
-	log.Printf("%s\n", output)
+
+	/*
+		// DEBUGGING
+		output, err := json.MarshalIndent(user, "", "    ")
+		if err != nil {
+			panic(err)
+		}
+		log.Printf("%s\n", output)
 	*/
 
 	// if everything went alright, return the c.Status(200).JSON(UserResponse{}) with the userresponse status as 200, message as success and the data our user!
@@ -90,15 +90,15 @@ func helloWorld(c *fiber.Ctx) error {
 
 func setupRoutes(app *fiber.App) {
 	app.Get("/", helloWorld)
-	// We will allocate the /user/:name uri, and we will pass the name as queryParam (/user/john)
+	// We will allocate the /user/:name uri, and we will pass the name as path parameter (/user/john)
 	app.Get("/user/:name", getUser)
 }
 
-// main 
-func main (){
+// main
+func main() {
 	app := fiber.New()
-	// Add the routes to the app we created above (right now we only have 1 route)
+	// Add the routes to the app we created above (right now we only have 2 routes)
 	setupRoutes(app)
 	// Listen to port 3000
-    app.Listen(":3000")
+	app.Listen(":3000")
 }

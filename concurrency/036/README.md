@@ -2,7 +2,8 @@
 
 ## Controlling Execution Order
 
-Sometimes you need to run goroutines in a specific sequence. While goroutines normally run concurrently (at the same time), channels allow you to coordinate and control their execution order.
+Sometimes you need to run goroutines in a specific sequence.
+While goroutines normally run concurrently (at the same time), channels allow you to coordinate and control their execution order.
 
 ## Sequential vs Concurrent Execution
 
@@ -58,3 +59,72 @@ Task2 should only run AFTER Task1 completes.
 ## Hint
 
 You'll need to use channel operations to coordinate between the main function and the goroutines. Remember that receiving from a channel blocks until a value is available.
+
+```go
+// There are two goroutines now
+// Call the first goroutine (named 'task') and run the second goroutine 'task2' ONLY after the first one has finished
+
+package main
+
+import "fmt"
+import "time"
+
+func task(done chan bool) {
+  fmt.Print("running Task1 goroutine...")
+  time.Sleep(time.Second)
+  fmt.Println("done")
+  done <- true
+}
+
+func task2() {
+  fmt.Println("Task2 goroutine...")
+}
+
+func main() {
+  var done chan bool = make(chan bool, 1)
+  fmt.Println("I am running in the main thread concurrently")
+  // Your code goes here
+
+}
+
+
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Exercise: Channels synchronisation
+
+// There are two goroutines now
+// Call the first goroutine (named 'task') and run the second goroutine 'task2' ONLY after the first one has finished
+
+package main
+
+import "fmt"
+import "time"
+
+func task(done chan bool) {
+  fmt.Print("running Task1 goroutine...")
+  time.Sleep(time.Second)
+  fmt.Println("done")
+  done <- true
+}
+
+func task2() {
+  fmt.Println("Task2 goroutine...")
+}
+
+func main() {
+  var done chan bool = make(chan bool, 1)
+  fmt.Println("I am running in the main thread concurrently")
+  // Your code goes here
+  go task(done)
+  if <-done {
+    go task2()
+    time.Sleep(time.Second)
+  }
+}
+```
+
+</details>

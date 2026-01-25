@@ -69,3 +69,47 @@ The program should demonstrate that the `send` function can only send to the cha
 ## Hint
 
 The channel direction for send-only is `chan<- string`. Remember the arrow points **into** the channel for sending.
+
+```go
+// Exercise: Channels directions (only send/tx)
+
+// Make a goroutine with a channel for only send data.
+// The function should be called "send" and the send-only channel should be it's 1st and only argument
+// Receive data from that channel is prohibited / will cause compiler errors
+
+package main
+
+import "fmt"
+
+func main () {
+	var c chan string = make(chan string, 1)
+	
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Exercise: Channels directions (only send/tx)
+
+// Make a goroutine with a channel for only send data.
+// The function should be called "send" and the send-only channel should be it's 1st and only argument
+// Receive data from that channel is prohibited / will cause compiler errors
+
+package main
+
+import "fmt"
+
+func send(c chan <- string){
+	c <- "Only send"
+}
+
+func main () {
+	var c chan string = make(chan string, 1)
+	send(c)
+	fmt.Println(<-c)
+}
+```
+
+</details>

@@ -15,14 +15,4 @@ import "fmt"
 func main () {
 	var c chan int = make(chan int,5)
 
-	c <- 3
-	c <- 6
-	c <- 8
-	c <- 22
-	c <- 1
-	close(c)
-	
-	for element := range c {
-		fmt.Println(element)
-	}
 }

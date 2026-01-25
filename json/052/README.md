@@ -72,3 +72,86 @@ The JSON has field names with spaces: `"family name"` and `"what does he say"`. 
 ## Key Learning
 
 Struct tags bridge the gap between JSON naming conventions and Go naming conventions, allowing you to work with any JSON format regardless of its field naming style.
+
+```go
+// Exercise: JSON!!
+
+// There is a json with custom fields names.
+// modify the Human struct to map the custom name, to a single-named variable in our GO code.
+
+package main
+
+import (
+    "fmt"
+    "encoding/json"
+)
+
+type Human struct {
+  Name string  // Add something here
+  Description string // Add something here
+  Dimensions Dimensions
+}
+
+type Dimensions struct {
+  Height string
+  Weight string
+}
+
+func main() {
+  humanJson := `{ "family name": "Rick",
+                  "what does he say": "has a grandson called Morty",
+                  "dimensions": { 
+                    "height": "1.80m",
+                    "weight": "50kg"
+                  }
+                }`
+
+  var human Human
+  json.Unmarshal([]byte(humanJson),&human)
+  fmt.Println(human.Name + " is old and " + human.Description)
+}
+```
+
+<details>
+<summary> Solution: </summary>
+
+```go
+// Exercise: JSON!!
+
+// There is a json with custom fields names.
+// modify the Human struct to map the custom name, to a single-named variable in our GO code.
+
+package main
+
+import (
+    "fmt"
+    "encoding/json"
+)
+
+type Human struct {
+  Name string `json:"family name"`
+  Description string `json:"what does he say"`
+  Dimensions Dimensions
+}
+
+type Dimensions struct {
+  Height string
+  Weight string
+}
+
+func main() {
+  humanJson := `{ "family name": "Rick",
+                  "what does he say": "has a grandson called Morty",
+                  "dimensions": { 
+                    "height": "1.80m",
+                    "weight": "50kg"
+                  }
+                }`
+
+  var human Human
+  json.Unmarshal([]byte(humanJson),&human)
+  fmt.Println(human.Name + " is old and " + human.Description)
+}
+```
+
+</details>
