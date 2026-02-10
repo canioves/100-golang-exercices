@@ -4,15 +4,15 @@
 package main
 
 import (
+	"fmt"
 	"log"
-  	"fmt"
 	"os"
 )
 
 func main() {
-	data, err := os.ReadFile()
+	data, err := os.ReadFile("file_management/017/read.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println()
+	fmt.Println(string(data))
 }

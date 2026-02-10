@@ -11,11 +11,16 @@ package main
 import "fmt"
 
 type Hotel struct {
-	// Your code goes here
-
+	numRooms   int32
+	streetName string
+	hasPool    bool
 }
 
-func main () {
+func main() {
 	var myHotel Hotel
-	// Your code goes here
+	myHotel.numRooms = 10
+	myHotel.streetName = "biba street"
+	myHotel.hasPool = true
+
+	fmt.Printf("%+v", myHotel)
 }

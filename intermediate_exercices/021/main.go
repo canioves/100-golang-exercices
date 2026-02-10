@@ -8,7 +8,10 @@ package main
 
 import "fmt"
 
-func main () {
-	// Your code goes here
-	
+func main() {
+	var mapp map[int]string = map[int]string{4: "A", 2: "B", 3: "C"}
+	for k, v := range mapp {
+		fmt.Println(k, v)
+	}
+
 }

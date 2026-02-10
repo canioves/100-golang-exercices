@@ -3,8 +3,13 @@
 
 package main
 
+import "fmt"
+
 // import "fmt"
 
-func main () {
-	// Here goes your code
+func main() {
+	// name
+	fmt.Println("biba boba")
+	// address
+	fmt.Print("gogo gaga street")
 }

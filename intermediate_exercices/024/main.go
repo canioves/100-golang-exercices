@@ -5,8 +5,9 @@ package main
 
 import "fmt"
 
-func main () {
-    var x int = 5
-	// Your code goes here
-	
+func main() {
+	var x int = 5
+	p := &x
+	fmt.Print(p)
+
 }

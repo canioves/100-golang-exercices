@@ -3,9 +3,21 @@
 
 package main
 
-import "os"
+import (
+	"log"
+	"os"
+)
 
-func main () {
-	// Here goes your code
-	
+func main() {
+	file, err := os.Create("file_management/018/create.txt")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer file.Close()
+
+	arr := [6]string{"biba", "boba", "buba", "babiba", "gugu", "gaga"}
+	for _, e := range arr {
+		file.WriteString(e + "\n")
+	}
 }

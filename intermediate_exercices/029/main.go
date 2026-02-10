@@ -9,9 +9,10 @@ package main
 import "fmt"
 
 func operation(x, y int) (int, int) {
-	
+	return x + y, x - y
 }
 
-func main () {
-	
+func main() {
+	sum, sub := operation(1, 2)
+	fmt.Println(sum, sub)
 }

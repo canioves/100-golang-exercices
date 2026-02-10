@@ -7,7 +7,7 @@ package main
 
 import "fmt"
 
-func main () {
+func main() {
 	// Here is your code
-	fmt.Printf("HELLO");
+	fmt.Println("Hello world!")
 }

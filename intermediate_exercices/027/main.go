@@ -7,8 +7,9 @@ package main
 
 import "fmt"
 
-func main () {
-  var slice = []int32{0,1,2,3,4}
-  // Your code goes here
+func main() {
+	var slice = []int32{0, 1, 2, 3, 4}
+	var middle = slice[1:4]
+	fmt.Println(middle)
 
 }

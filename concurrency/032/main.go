@@ -11,16 +11,16 @@ import "time"
 
 func main() {
 	// call our go routine here
-
+	go start()
 	// Immediately after calling our go routine, we will print "Started"
 	// Note that possibly "Started" can be printed BEFORE our go routine string
 	fmt.Println("Started")
 	// add a sleep of 1 second here
-
+	time.Sleep(time.Second * 1)
 	fmt.Println("Finished")
 }
 
 func start() {
 	// Print something
+	fmt.Println("Starting")
 }
-

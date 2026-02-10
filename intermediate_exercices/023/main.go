@@ -3,12 +3,12 @@
 package main
 
 import (
-    "fmt"
-    "math/rand"
-    "time"
+	"fmt"
+	"math/rand"
 )
 
-func main () {
+func main() {
 	// Your code goes here
-	
+	randInt := rand.Intn(101) - 50
+	fmt.Println(randInt)
 }

@@ -8,8 +8,12 @@ package main
 
 import "fmt"
 
-func main () {
-    var x int32 = 5
-	// Your code goes here
-	
+func main() {
+	var x int32 = 5
+	var p *int32
+	p = &x
+	fmt.Printf("Value of x: %d\n", x)
+	fmt.Printf("Memory address of x: %d\n", &x)
+	fmt.Printf("Pointer value: %d\n", p)
+
 }

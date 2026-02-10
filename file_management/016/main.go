@@ -3,10 +3,15 @@
 
 package main
 
-import "fmt"
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
-func main () {
-	// Here goes your code
-	
+func main() {
+	if _, err := os.Stat("file_management/016/test.txt"); err == nil {
+		fmt.Println("exists")
+	} else {
+		fmt.Println("not exists")
+	}
 }

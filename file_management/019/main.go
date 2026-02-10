@@ -3,12 +3,14 @@
 
 package main
 
-import "os"
+import (
+	"os"
+)
 
-
-func main () {
+func main() {
 	var src, dest string
-	src = "name1.txt"
-	// Here goes your code
+	src = "file_management/019/file1.txt"
+	dest = "file_management/019/file2.txt"
 
+	os.Rename(src, dest)
 }

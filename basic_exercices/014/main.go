@@ -9,7 +9,12 @@ package main
 
 import "fmt"
 
-func main () {
-	// Here goes your code
-	fmt.Printf("...")
+func main() {
+	var name, surname string
+	fmt.Printf("Name? ")
+	fmt.Scan(&name)
+	fmt.Printf("Surname? ")
+	fmt.Scan(&surname)
+
+	fmt.Println(name, surname)
 }

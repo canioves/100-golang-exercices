@@ -4,7 +4,7 @@ package main
 
 import "fmt"
 
-func main () {
-	// Here goes your code
-	fmt.Printf("...")
+func main() {
+	arr := [5]string{"biba", "boba"}
+	fmt.Println(arr, len(arr), cap(arr))
 }
