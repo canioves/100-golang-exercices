@@ -7,16 +7,18 @@
 
 package main
 
-import "fmt"
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 func task() {
-    
+	for range time.Tick(time.Second) {
+		fmt.Print("Tick! ")
+	}
 }
 
 func main() {
-    
-
-
-    time.Sleep(time.Second * 5) 
+	go task()
+	time.Sleep(time.Second * 5)
 }

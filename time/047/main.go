@@ -5,13 +5,13 @@
 package main
 
 import (
-    "fmt"
-    "time"
+	"fmt"
+	"time"
 )
 
 func main() {
-  current := time.Now().UTC()
-  inTenMinutes := 
-  
-  fmt.Println(inTenMinutes)
+	current := time.Now().UTC()
+	inTenMinutes := current.Add(time.Minute * 10)
+
+	fmt.Println(inTenMinutes)
 }
