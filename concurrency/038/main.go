@@ -8,7 +8,14 @@ package main
 
 import "fmt"
 
-func main () {
+func sendOnly(out chan<- string) {
+	s := "data"
+	out <- s
+}
+
+func main() {
 	var c chan string = make(chan string, 1)
-	
+	sendOnly(c)
+	x := <-c
+	fmt.Println(x)
 }

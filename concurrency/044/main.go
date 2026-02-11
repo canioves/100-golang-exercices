@@ -11,13 +11,19 @@ package main
 import "fmt"
 import "time"
 
-func second(c chan int){
-	
+func second(c chan int) {
+	for {
+		c <- time.Now().Second()
+		time.Sleep(time.Second)
+
+	}
 }
 
-func main () {
+func main() {
 	var c chan int = make(chan int)
 	go second(c)
-	
-	
+	for x := range c {
+		fmt.Print(x)
+	}
+
 }

@@ -8,7 +8,22 @@ package main
 
 import "fmt"
 
+func main() {
+	ch := make(chan string, 2)
+	ch <- "Hello"
+	ch <- "World"
 
-func main () {
-	
+	fmt.Println(<-ch)
+	close(ch)
+	fmt.Println(<-ch)
+
+	if x, ok := <-ch; !ok {
+		fmt.Println("channel is empty")
+	} else {
+		fmt.Println(x)
+	}
+
+	// for x := range ch {
+	// 	fmt.Println(x)
+	// }
 }
