@@ -8,22 +8,21 @@
 package main
 
 import (
-    "fmt"
-    "encoding/json"
+	"encoding/json"
+	"fmt"
 )
 
 type Human struct {
-  Name string
-  Description string
+	Name        string
+	Description string
 }
 
 func main() {
-  humansJson := `[{"name": "Rick",
+	humansJson := `[{"name": "Rick",
                  "description": "has a grandson called Morty"},
                 {"name": "Cactus",
                  "description": "is one of the powerpuff girls' name"}]`
-
-  
-
-  
+	var humanArr [2]Human
+	json.Unmarshal([]byte(humansJson), &humanArr)
+	fmt.Println(humanArr)
 }

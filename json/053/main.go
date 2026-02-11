@@ -9,20 +9,29 @@
 package main
 
 import (
-    "fmt"
-    "encoding/json"
+	"encoding/json"
+	"fmt"
 )
 
-
-
 func main() {
-  birdJson := `{
+	birdJson := `{
                 "birds": {
                   "pigeon":"likes to perch on rocks",
                   "eagle":"bird of prey"
                 },
                 "animals": "none"
               }`
+	var result map[string]interface{}
+	json.Unmarshal([]byte(birdJson), &result)
 
-  
+	for k, v := range result {
+		if value, ok := result[k].(map[string]interface{}); ok {
+			for k_in, v_in := range value {
+				fmt.Printf("%s: %s\n", k_in, v_in)
+			}
+		} else {
+			fmt.Printf("%s: %s\n", k, v)
+		}
+	}
+
 }

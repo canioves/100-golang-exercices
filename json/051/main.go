@@ -5,28 +5,32 @@
 // Now in the json object we are going to have a nested object
 // Print out the values ONLY of that nested object
 
-
 package main
 
 import (
-    "fmt"
-    "encoding/json"
+	"encoding/json"
+	"fmt"
 )
 
+type Dimensions struct {
+	Height string
+	Weight string
+}
 type Human struct {
-  Name string
-  Description string
-
+	Name        string
+	Description string
+	Dimensions  Dimensions
 }
 
-
 func main() {
-  humanJson := `{"name": "Rick",
+	humanJson := `{"name": "Rick",
                   "description": "has a grandson called Morty",
                   "dimensions": { 
                     "height": "1.80m",
                     "weight": "50kg"
                   }
                 }`
-  
+	var human Human
+	json.Unmarshal([]byte(humanJson), &human)
+	fmt.Printf("%+v", human)
 }

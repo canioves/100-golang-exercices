@@ -6,23 +6,23 @@
 package main
 
 import (
-    "fmt"
-    "encoding/json"
+	"encoding/json"
+	"fmt"
 )
 
 type Human struct {
-  Name string  // Add something here
-  Description string // Add something here
-  Dimensions Dimensions
+	Name        string `json:"family name"`      // Add something here
+	Description string `json:"what does he say"` // Add something here
+	Dimensions  Dimensions
 }
 
 type Dimensions struct {
-  Height string
-  Weight string
+	Height string
+	Weight string
 }
 
 func main() {
-  humanJson := `{ "family name": "Rick",
+	humanJson := `{ "family name": "Rick",
                   "what does he say": "has a grandson called Morty",
                   "dimensions": { 
                     "height": "1.80m",
@@ -30,7 +30,7 @@ func main() {
                   }
                 }`
 
-  var human Human
-  json.Unmarshal([]byte(humanJson),&human)
-  fmt.Println(human.Name + " is old and " + human.Description)
+	var human Human
+	json.Unmarshal([]byte(humanJson), &human)
+	fmt.Println(human.Name + " is old and " + human.Description)
 }

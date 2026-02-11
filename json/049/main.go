@@ -6,17 +6,22 @@
 package main
 
 import (
-    "fmt"
-    "encoding/json"
+	"encoding/json"
+	"fmt"
+	"log"
 )
 
 type Human struct {
-  
+	Name        string
+	Description string
 }
 
 func main() {
-  humanJson := `{"name": "Rick","description": "has a grandson called Morty"}`
-  
-
-  fmt.Println(human.Name + " is old and " + human.Description)
+	humanJson := `{"name": "Rick","description": "has a grandson called Morty"}`
+	var human Human
+	err := json.Unmarshal([]byte(humanJson), &human)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(human.Name + " is old and " + human.Description)
 }
