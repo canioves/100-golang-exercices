@@ -5,11 +5,20 @@
 // Sending data from that channel is prohibited / will cause compiler errors
 // Feed some string into that channel.
 
-
 package main
 
 import "fmt"
 
-func main () {
-	
+func recieveOnly(in <-chan string) {
+	s := <-in
+	fmt.Println(s)
+}
+
+func main() {
+	ch := make(chan string)
+	ch <- "message in channel"
+
+	go recieveOnly(ch)
+
+	<-ch
 }

@@ -9,17 +9,17 @@ import "fmt"
 import "time"
 
 func task(done chan bool) {
-    fmt.Print("running...")
-    time.Sleep(time.Second)
-    fmt.Println("done")
+	fmt.Print("running...")
+	time.Sleep(time.Second)
+	fmt.Println("done")
 
-    done <- true
+	done <- true
 }
 
-func main () {
-	var done chan bool = make(chan bool)	
+func main() {
+	var done chan bool = make(chan bool)
 	go task(done)
 
 	// Your code goes here
-	
+	<-done
 }

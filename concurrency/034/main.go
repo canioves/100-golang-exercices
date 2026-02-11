@@ -10,15 +10,21 @@ package main
 import "fmt"
 import "time"
 
-
-func pop_message (c chan string){
-	msg := <- c
+func pop_message(c chan string) {
+	msg := <-c
 	fmt.Println(msg)
 }
-func main () {
-	// Your code goes here
-
-
+func main() {
+	ch := make(chan string, 4)
+	words := [5]string{"biba", "boba", "beba", "baba", "buba"}
+	for _, x := range words {
+		ch <- x
+	}
+	pop_message(ch)
+	pop_message(ch)
+	pop_message(ch)
+	pop_message(ch)
+	// pop_message(ch)
 	// this sleep is in order to not exit the program sooner than the routine lifetime :)
 	time.Sleep(1 * time.Second)
 }
