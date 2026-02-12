@@ -12,12 +12,12 @@ type human map[string]interface{}
 func main() {
 	person := make(human)
 	person["name"] = "Alice"
-    person["age"] = 21
-    person["height"] = 167.64
+	person["age"] = 21
+	person["height"] = 167.64
 
 	// Try to update the person age, the new value will be the existing one plus 1
 	// (When you run the program, see what happens), what's the error it arises?
-	person["age"] = 
+	person["age"] = person["age"].(int) + 1
 
-    fmt.Printf("%+v", person)
+	fmt.Printf("%+v", person)
 }

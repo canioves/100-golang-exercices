@@ -11,17 +11,17 @@ import (
 )
 
 // Create an type called human, it will be a map of a string as a key, and an empty interface as the value
-
+type Human map[string]interface{}
 
 func main() {
 	// make a new human, assign it to the person variable
-
+	person := make(Human)
 	// set the person "name" to "Alice"
-
+	person["name"] = "Alice"
 	// Set the persons age to any int
-
+	person["age"] = 23
 	// Set the person height to any float64
-
+	person["height"] = 1.23
 	// print the person
-    fmt.Printf("%+v", person)
+	fmt.Printf("%+v", person)
 }

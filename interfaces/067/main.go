@@ -13,15 +13,17 @@ type human map[string]interface{}
 func main() {
 	person := make(human)
 	person["name"] = "Alice"
-    person["age"] = 21
-    person["height"] = 167.64
+	person["age"] = 21
+	person["height"] = 167.64
 
 	// Type assertion for the integer. use .(int) for type assertion!
-	
+	age, ok := person["age"].(string)
 	// Check that the assertion was alright
-	
+	if !ok {
+		log.Fatalln("cant add to not integer")
+	}
 
-	person["age"] = age + 1
+	person["age"] = age + "123"
 
-    fmt.Printf("%+v", person)
+	fmt.Printf("%+v", person)
 }
