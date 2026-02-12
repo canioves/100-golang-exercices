@@ -7,23 +7,26 @@
 package main
 
 import (
-    "fmt"
-    "net"
-    "bufio"
+	"bufio"
+	"fmt"
+	"net"
 )
 
 func main() {
-  fmt.Println("Start server")
-  // Now make the server listen at the 8000 port (tcp protocol)
-  
-  // Accept the connection
-  
+	fmt.Println("Start server")
+	// Now make the server listen at the 8000 port (tcp protocol)
+	listener, err := net.Listen("tcp", ":8000")
+	if err != nil {
+		fmt.Println("error with network")
+	}
+	// Accept the connection
+	accept, err := listener.Accept()
+	// Run a loop forever (unless interrupted by signal)
+	for {
+		reader := bufio.NewReader(accept)
+		// Recive a message with the bufio.NewReader(connection).ReadString function
+		message, _ := reader.ReadString('\n')
+		fmt.Print("Message Received:", string(message))
+	}
 
-  // Run a loop forever (unless interrupted by signal)
-  for {
-    // Recive a message with the bufio.NewReader(connection).ReadString function
-    
-    fmt.Print("Message Received:", string(message))
-  }
-  
 }

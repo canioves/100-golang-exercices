@@ -13,21 +13,20 @@ import "os"
 
 func main() {
 
-  // connect to server (use the Dial function!)
-  conn, _ := 
+	// connect to server (use the Dial function!)
+	conn, _ := net.Dial("tcp", "localhost:8000")
 
-  // Infinite loop again 
-  for { 
-    // Sending...
-    reader := bufio.NewReader(os.Stdin)
-    fmt.Print("Text to send: ")
-    // in a variable called "text, use the ReadString function from the reader variable, with the newline character as it's argument"
-    
-
-    // send to server (use Fprintf for this!) 
-    
-    // wait for reply from server (must accept the connection)
-    message, _ := bufio.NewReader(conn).ReadString('\n')
-    fmt.Print("Message from server: "+message)
-  }
+	// Infinite loop again
+	for {
+		// Sending...
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Print("Text to send: ")
+		// in a variable called "text, use the ReadString function from the reader variable, with the newline character as it's argument"
+		text, _ := reader.ReadString('\n')
+		// send to server (use Fprintf for this!)
+		fmt.Fprintf(conn, text)
+		// wait for reply from server (must accept the connection)
+		message, _ := bufio.NewReader(conn).ReadString('\n')
+		fmt.Print("Message from server: " + message)
+	}
 }

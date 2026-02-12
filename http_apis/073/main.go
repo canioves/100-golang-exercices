@@ -17,9 +17,11 @@ import "log"
 
 func main() {
 
-  http.HandleFunc(/**/ , func(w http.ResponseWriter, r *http.Request) {
-	  
-  })
+	http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
+		path := r.URL.Path
+		response := fmt.Sprintf("Hello, %s", path)
+		fmt.Fprint(w, html.EscapeString(response))
+	})
 
-  log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
