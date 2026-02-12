@@ -2,7 +2,7 @@
 package main
 
 import (
-	"context" 
+	"context"
 	"fmt"
 	"time"
 )
@@ -11,7 +11,7 @@ import (
 func doSomething(ctx context.Context) {
 	// Repeat the same operation for cancelling the context, but this time instead of WithDeadline(a,b) we will use WithTimeout(ctx,time.Time)
 	// We will assign it a time of 1,5 seconds
-	
+	ctx, cancelCtx := context.WithTimeout(ctx, time.Millisecond*1500)
 	// defer cancelCtx when time has passed
 	defer cancelCtx()
 	// Make a new unbuffered channel of integers and assign it to printCh
@@ -22,24 +22,22 @@ func doSomething(ctx context.Context) {
 	// And whenever it receives a ctx.Done(), just break the selection.
 	for num := 1; num <= 3; num++ {
 		select {
-			// case 1 (receive a number to printCh channel)
-			case printCh <- num:
-				// then sleep for a second
-				time.Sleep(1 * time.Second)
-			// case 2 (received ctx.done())
-			case <-ctx.Done():
-				// break
-				break
+		// case 1 (receive a number to printCh channel)
+		case printCh <- num:
+			// then sleep for a second
+			time.Sleep(1 * time.Second)
+		// case 2 (received ctx.done())
+		case <-ctx.Done():
+			// break
+			break
 		}
 	}
-	
+
 	// sleep for 100 ms
 	time.Sleep(1000 * time.Millisecond)
 	// print that doSomething has finished
 	fmt.Printf("doSomething: finished\n")
 }
-
-
 
 func doAnother(ctx context.Context, printCh <-chan int) {
 	for {

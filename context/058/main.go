@@ -2,7 +2,7 @@
 package main
 
 import (
-	"context" 
+	"context"
 	"fmt"
 )
 
@@ -13,14 +13,14 @@ func doAnother(ctx context.Context) {
 // Modify the doSomething function
 func doSomething(ctx context.Context) {
 	fmt.Println("doSomething: Name's value is", ctx.Value("Name"))
-	anotherCtx := context.WithValue(ctx,"Name","Mary")
+	anotherCtx := context.WithValue(ctx, "Name", "Mary")
 	doAnother(anotherCtx)
 	// Add another print statement to show the ctx.Value for your key again, does it change?
-	
+	fmt.Println(ctx.Value("Name"))
 }
 
 func main() {
 	ctx := context.Background()
-	ctx = context.WithValue(ctx,"Name","John")
+	ctx = context.WithValue(ctx, "Name", "John")
 	doSomething(ctx)
 }
